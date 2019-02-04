@@ -1,0 +1,33 @@
+plugins {
+    id "java"
+    id "scala"
+    id "com.github.lkishalmi.gatling" version "3.0.2"
+}
+
+description = "TransferApp - Load Tests"
+
+sourceCompatibility = javaVersion
+targetCompatibility = javaVersion
+
+group "io.kraluk.transferapp"
+version "1.0.0-SNAPSHOT"
+
+gatling {
+    jvmArgs = ["-server", "-Xms512M", "-Xmx512M",
+               "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+               "--add-exports", "java.base/jdk.internal.misc=ALL-UNNAMED",
+               "-Dio.netty.tryReflectionSetAccessible=true",
+               "--illegal-access=warn"]
+
+    simulations = {
+        include "**/*Simu.scala"
+        include "**/*Simulation.scala"
+    }
+}
+
+dependencies {
+    gatling group: "org.scala-lang", name: "scala-library", version: "2.12.8"
+    compile group: "org.scala-lang", name: "scala-library", version: "2.12.8" // just to avoid IntelliJ complains
+
+    gatlingRuntime project(":transfer-app-core")
+}

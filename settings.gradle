@@ -1,0 +1,5 @@
+rootProject.name = 'transfer-app'
+
+include 'transfer-app-core'
+include 'transfer-app-integration-tests'
+include 'transfer-app-load-tests'

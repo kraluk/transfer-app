@@ -1,0 +1,43 @@
+plugins {
+    id "idea"
+    id "com.ofg.uptodate" version "1.6.3"
+}
+
+ext {
+    projectVersion = "1.0.0-SNAPSHOT"
+
+    javaVersion = JavaVersion.VERSION_11
+    groovyVersion = "2.5.4"
+    spockVersion = "1.2-groovy-2.5"
+    ratpackVersion = "1.6.0"
+    jooqVersion = "3.11.9"
+}
+
+allprojects {
+    ext.displayName = null
+}
+
+subprojects {
+    apply plugin: "java"
+    apply plugin: "jacoco"
+    apply plugin: "idea"
+
+    version = "$projectVersion"
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+
+    test {
+        testLogging {
+            events "passed", "skipped", "failed"
+            exceptionFormat = "full"
+        }
+    }
+}
+
+wrapper {
+    gradleVersion = "5.2"
+}
