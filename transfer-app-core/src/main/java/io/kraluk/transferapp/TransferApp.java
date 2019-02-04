@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ratpack.dropwizard.metrics.DropwizardMetricsModule;
+import ratpack.exec.Promise;
 import ratpack.guice.Guice;
 import ratpack.handling.ResponseTimer;
 import ratpack.server.RatpackServer;
@@ -42,7 +43,7 @@ public class TransferApp {
             .handlers(chain -> chain
                 .all(LoggingHandler.class)
 
-                .get("", ctx -> ctx.render("Hello!"))
+                .get("", ctx -> ctx.render(Promise.value("Hello!")))
             )
         );
     }

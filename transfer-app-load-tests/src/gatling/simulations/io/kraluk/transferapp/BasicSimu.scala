@@ -17,10 +17,10 @@ class BasicSimu extends Simulation {
 
   val testScenario: ScenarioBuilder = scenario("BasicSimulation")
     .exec(http("simple_request")
-      .get("/test/tadek"))
+      .get("/"))
     .pause(1)
 
   setUp(
-    testScenario.inject(atOnceUsers(1000))
+    testScenario.inject(atOnceUsers(100))
   ).protocols(httpConfiguration)
 }
