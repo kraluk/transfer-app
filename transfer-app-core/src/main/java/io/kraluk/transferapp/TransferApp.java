@@ -43,7 +43,7 @@ public class TransferApp {
             .handlers(chain -> chain
                 .all(LoggingHandler.class)
 
-                .get("", ctx -> ctx.render(Promise.value("Hello!")))
+                .get("", ctx -> Promise.value("Hello!").then(ctx::render))
             )
         );
     }
