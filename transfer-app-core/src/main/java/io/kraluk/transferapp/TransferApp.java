@@ -1,8 +1,6 @@
 package io.kraluk.transferapp;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-
+import io.kraluk.transferapp.core.CoreModule;
 import io.kraluk.transferapp.core.repository.RepositoryModule;
 import io.kraluk.transferapp.core.web.LoggingHandler;
 
@@ -10,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ratpack.dropwizard.metrics.DropwizardMetricsModule;
+import ratpack.error.internal.DefaultDevelopmentErrorHandler;
 import ratpack.exec.Promise;
 import ratpack.guice.Guice;
 import ratpack.handling.ResponseTimer;
@@ -20,7 +19,7 @@ import ratpack.server.RatpackServer;
  *
  * @author lukasz
  */
-public class TransferApp {
+public final class TransferApp {
     private static final Logger log = LoggerFactory.getLogger(TransferApp.class);
 
     public static void main(final String... args) throws Exception {
@@ -28,17 +27,20 @@ public class TransferApp {
 
         RatpackServer.start(server -> server
             .registry(Guice.registry(bindings -> bindings
-                // Error handlers
-                .bind(LoggingHandler.class)
-                //.bind(DefaultDevelopmentErrorHandler.class)
-                .bindInstance(ResponseTimer.decorator())
+                    // Error handlers
+                    .bind(LoggingHandler.class)
+                    .bind(DefaultDevelopmentErrorHandler.class)
+                    .bindInstance(ResponseTimer.decorator())
 
-                // Jackson stuff
-                .bindInstance(ObjectMapper.class, new ObjectMapper().registerModule(new Jdk8Module()))
+                    // Technical modules
+                    .module(CoreModule.class)
+                    .module(RepositoryModule.class)
+                    .module(DropwizardMetricsModule.class)
 
-                // Technical modules
-                .module(RepositoryModule.class)
-                .module(DropwizardMetricsModule.class)
+                // Business modules
+                //.module(TransactionModule.class)
+                //.module(AccountModule.class)
+                //.module(CustomerModule.class)
             ))
             .handlers(chain -> chain
                 .all(LoggingHandler.class)

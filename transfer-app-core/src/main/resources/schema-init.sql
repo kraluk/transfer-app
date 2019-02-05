@@ -5,12 +5,16 @@ SET SCHEMA TRANSFER_APP;
 
 -- DDLs
 
-DROP TABLE IF EXISTS test_business_entity;
+DROP TABLE IF EXISTS financial_transaction;
 
-CREATE TABLE test_business_entity
+CREATE TABLE financial_transaction
 (
   `id`          BIGINT AUTO_INCREMENT PRIMARY KEY,
-  `business_id` UUID DEFAULT RANDOM_UUID(),
+  `business_id` UUID               DEFAULT RANDOM_UUID(),
+  `name`        VARCHAR(256),
+
+  `created_at`  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- DMLs
