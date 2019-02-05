@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/kraluk/transfer-app/tree/master.svg?style=svg)](https://circleci.com/gh/kraluk/transfer-app/tree/master)
+
 # TransferApp
 
 TODO: some short description
