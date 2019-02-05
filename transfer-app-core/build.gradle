@@ -22,7 +22,7 @@ apply from: "jooq.gradle"
 description = "TransferApp - Core"
 
 group "io.kraluk.transferapp"
-version "1.0.0-SNAPSHOT"
+version "$projectVersion"
 
 sourceCompatibility = javaVersion
 targetCompatibility = javaVersion

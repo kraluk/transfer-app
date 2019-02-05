@@ -23,7 +23,7 @@ Some great stuff used in this app:
    ```bash
    ./gradlew :transfer-app-core:run
    ```
-   or to run in the [reload mode][1]:
+   or to run in the [reload mode][1] (not working well under Java 9+):
    ```bash
    ./gradlew :transfer-app-core:run -t
    ```
@@ -36,7 +36,7 @@ Some great stuff used in this app:
    ```
 2. Run the app:
    ```bash
-   java -jar transfer-app-core-1.0.0-SNAPSHOT.jar
+   java -jar transfer-app-core-${projectVersion}.jar
    ```
    By default it will be located in the following directory: `${repo_root}/transfer-app-core/build/libs`
 3. As the in-memory DB is used, there won't be any problems with configuring the database at all, at least in this moment.
