@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+
+    working_directory: ~/transer-app
+
+    docker:
+      - image: circleci/openjdk:11.0.2-jdk-browsers
+
+    steps:
+
+      - checkout
+
+      - restore_cache:
+          # TODO: take into account subproject build files
+          key: transer-app-{{ checksum "build.gradle" }}
+
+      - run: ./gradlew dependencies
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          # TODO: take into account subproject build files
+          key: transer-app-{{ checksum "build.gradle" }}
+
+      - run: ./gradlew build
