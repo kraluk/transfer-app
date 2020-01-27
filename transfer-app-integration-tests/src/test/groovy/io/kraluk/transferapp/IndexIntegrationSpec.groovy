@@ -7,7 +7,12 @@ import spock.lang.AutoCleanup
 import spock.lang.Shared
 import spock.lang.Specification
 
-class IntegrationSpec extends Specification {
+/**
+ * Integration Specification for {@code /} endpoint
+ *
+ * @author lukasz
+ */
+class IndexIntegrationSpec extends Specification {
 
     @AutoCleanup
     @Shared
@@ -22,8 +27,10 @@ class IntegrationSpec extends Specification {
 
         then:
         with(result) {
-            assert getBody().getText() == 'Hello!'
+            assert getBody().getText() == "TransferApp"
             assert getStatus() == Status.OK
+
+            assert getHeaders().contains("X-Response-Time")
 
             assert getCookies('/')*.name() == []
             assert getCookies('/')*.value() == []

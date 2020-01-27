@@ -2,7 +2,11 @@ package io.kraluk.transferapp;
 
 import io.kraluk.transferapp.core.CoreModule;
 import io.kraluk.transferapp.core.repository.RepositoryModule;
-import io.kraluk.transferapp.core.web.LoggingHandler;
+import io.kraluk.transferapp.core.web.RequestLoggingHandler;
+import io.kraluk.transferapp.transaction.TransactionsHandler;
+import io.kraluk.transferapp.transaction.TransactionsIdHandler;
+import io.kraluk.transferapp.transaction.TransactionsIdStatusHandler;
+import io.kraluk.transferapp.transaction.domain.TransactionModule;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,25 +31,32 @@ public final class TransferApp {
 
         RatpackServer.start(server -> server
             .registry(Guice.registry(bindings -> bindings
-                    // Error handlers
-                    .bind(LoggingHandler.class)
-                    .bind(DefaultDevelopmentErrorHandler.class)
-                    .bindInstance(ResponseTimer.decorator())
+                // Error handlers
+                .bind(RequestLoggingHandler.class)
+                .bind(DefaultDevelopmentErrorHandler.class)
+                .bindInstance(ResponseTimer.decorator())
 
-                    // Technical modules
-                    .module(CoreModule.class)
-                    .module(RepositoryModule.class)
-                    .module(DropwizardMetricsModule.class)
+                .bind(TransactionsHandler.class)
+                .bind(TransactionsIdHandler.class)
+                .bind(TransactionsIdStatusHandler.class)
+
+                // Technical modules
+                .module(CoreModule.class)
+                .module(RepositoryModule.class)
+                .module(DropwizardMetricsModule.class)
 
                 // Business modules
-                //.module(TransactionModule.class)
-                //.module(AccountModule.class)
-                //.module(CustomerModule.class)
+                .module(TransactionModule.class)
             ))
             .handlers(chain -> chain
-                .all(LoggingHandler.class)
+                .all(RequestLoggingHandler.class)
 
-                .get("", ctx -> Promise.value("Hello!").then(ctx::render))
+                .get("", ctx -> ctx.byContent(m -> m
+                    .json(() -> Promise.value("TransferApp").then(ctx.getResponse()::send))))
+
+                .path("transactions", TransactionsHandler.class)
+                .path("transactions/:id", TransactionsIdHandler.class)
+                .path("transactions/:id/status", TransactionsIdStatusHandler.class)
             )
         );
     }

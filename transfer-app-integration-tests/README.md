@@ -4,5 +4,5 @@
 
 1. Simply execute the following command:
    ```bash
-   ./gradlew :transfer-app-integration-tests:integrationTest
+   ./gradlew :transaction-app-integration-tests:integrationTest
    ```

@@ -4,7 +4,7 @@
 
 Some great stuff used in this app:
 * Gradle 5
-* Java 11
+* **Java 11**
 * Ratpack
 * jOOQ
 * H2
@@ -15,30 +15,30 @@ Some great stuff used in this app:
 
 1. Generate jOOQ's schema (yep, it could be attached to the main build Gradle task, but for this case it's easier to do it in this way):
    ```bash
-   ./gradlew :transfer-app-core:generateTransferappJooqSchemaSource
+   ./gradlew :transaction-app-core:generateTransferappJooqSchemaSource
    ```
    If there will be need to regenerate the schema by each build, comment out or remove line `project.tasks.getByName("compileJava").dependsOn -= "generateTransferappJooqSchemaSource"` from the `jooq.gradle` file located in the root of this subproject.
 
 2. Run the app using Ratpack Gradle plugin:
    ```bash
-   ./gradlew :transfer-app-core:run
+   ./gradlew :transaction-app-core:run
    ```
    or to run in the [reload mode][1] (not working well under Java 9+):
    ```bash
-   ./gradlew :transfer-app-core:run -t
+   ./gradlew :transaction-app-core:run -t
    ```
 
 ## How to create a ready-to-go fat-jar?
 
 1. Create an artifact using the [Shadow plugin][2] (after creating jOOQ schema!):
    ```bash
-   ./gradlew :transfer-app-core:shadowJar
+   ./gradlew :transaction-app-core:shadowJar
    ```
 2. Run the app:
    ```bash
-   java -jar transfer-app-core-${projectVersion}.jar
+   java -jar transaction-app-core-${projectVersion}.jar
    ```
-   By default it will be located in the following directory: `${repo_root}/transfer-app-core/build/libs`
+   By default it will be located in the following directory: `${repo_root}/transaction-app-core/build/libs`
 3. As the in-memory DB is used, there won't be any problems with configuring the database at all, at least in this moment.
 
 ## Possible problems running the app on Java 9+

@@ -8,11 +8,11 @@ Frankly speaking, there is only one test written in Scala (em, just a simple Sca
 
 1. Run the app, for example with a following command:
    ```bash
-   ./gradlew :transfer-app-core:run
+   ./gradlew :transaction-app-core:run
    ```
 2. Start the tests:
    ```bash
-   ./gradlew :transfer-app-load-tests:gatlingRun
+   ./gradlew :transaction-app-load-tests:gatlingRun
    ```
 3. And wait for the results
 

@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/kraluk/transfer-app/tree/master.svg?style=svg)](https://circleci.com/gh/kraluk/transfer-app/tree/master)
+[![CircleCI](https://circleci.com/gh/kraluk/transaction-app/tree/master.svg?style=svg)](https://circleci.com/gh/kraluk/transaction-app/tree/master)
 
 # TransferApp
 
@@ -8,15 +8,15 @@ Based on the [Jakub Nabrdalik][1]'s [presentation][2] about Hexagonal architectu
 
 ## Project structure
 
-### `transfer-app-core`
+### `transaction-app-core`
 
 TODO
 
-### `transfer-app-integration-tests`
+### `transaction-app-integration-tests`
  
 TODO
 
-### `transfer-app-load-tests`
+### `transaction-app-load-tests`
 
 TODO
 
